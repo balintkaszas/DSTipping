@@ -1,6 +1,6 @@
 #include "./model.h"
 
-extern const double Pi = 3.14159265358979;//323846;
+extern const double Pi = 3.14159265358979;
 const double Q = 0.1;
 
 const double gammasq = 1./9.;
@@ -12,7 +12,6 @@ extern const double dt = 0.01*period;
 
 
 double Decay(double t, double A, double C0) {
-    // így A=0 esetén C=C0 konstanst kapunk.
     auto C = C0;
     if (t >= 0.) {
         C = C0*exp(-A*t);
@@ -21,7 +20,6 @@ double Decay(double t, double A, double C0) {
 }
 
 double LinearRamp(double t, double tRamp, double Cmax) {
-    // tRamp=0 a kvazistac. hatareset, de ERRE NEM JO A KOD! kene kivetel
     auto C = 0.1;
     if(tRamp == 0){ return Cmax;} //Kvazistac.hatareset    
     assert(tRamp >= 0);
@@ -34,25 +32,8 @@ double LinearRamp(double t, double tRamp, double Cmax) {
     }
     return C;
 }
-/*double LinearRamp(double t, double tRamp, double Cmax) {
-    // tRamp=0 a kvazistac. hatareset, de ERRE NEM JO A KOD! kene kivetel
-    auto C = 0.1;
-    assert(tRamp >= 0);
-    if(tRamp == 0){ return Cmax;} //Kvazistac.hatareset    
-    auto m = (Cmax-0.1)/(tRamp*period);
-   // auto m = (0.967)/(10.*period);
-    if (t >= 0. and t <= tRamp*period) {
-        C = 0.1+m*t;
-    }
-    if (t > tRamp*period) {
-        C = 0.1+m*tRamp*period;
-    }
-    return C;
-}*/
-
 
 double LinearRamp(double t, double tRamp) {
-    // tRamp=0 a kvazistac. hatareset, de ERRE NEM JO A KOD! kene kivetel
     auto C = 0.1;
     assert(tRamp >= 0);
     auto m = (0.967)/(10.*period);

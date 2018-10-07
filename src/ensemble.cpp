@@ -153,30 +153,6 @@ void Ensemble::read(const std::string& filename) {
 
 
 
-// template <typename ... Args> így lenne jó. egyelőre nem tudom hogyan
-/*void Ensemble::evolve(const double EvolveTo,
-    const double alpha,
-    const double C0) {
-        std::vector<std::future<void> > handles(nMaxThreads);
-        auto dTime = (EvolveTo*period-time);  // Ez lehet negatív is!
-        auto Sgn = (dTime > 0) ? 1 : ((dTime < 0) ? -1 : 0);
-        auto dt = Sgn*0.01*period;
-        auto dN = Points.size();
-        inga geci(alpha, C0);
-        auto numSteps = dTime/dt;
-        for (int j = 0; j < numSteps; j++) {
-            runge_kutta4<state_type> rk;
-            for(int i = 0; i < dN; i++){
-                rk.do_step(geci, Points[i], time, dt);
-                Points[i][0] = contract(Points[i][0]);
-
-            }
-            time = time + dt;
-
-        }
-
-    }*/
-
 void Ensemble::evolve(const double EvolveTo,
     const double tRamp,
     const double Cmax) {
@@ -202,7 +178,6 @@ void Ensemble::evolve(const double EvolveTo,
                j));
         }
     }
-// template <typename ... Args> így lenne jó. egyelőre nem tudom hogyan
 void Ensemble::evolve2(const double EvolveTo,
     const double tRamp,
     const double Cmax) {
@@ -285,45 +260,6 @@ void Ensemble::evolve2(const double EvolveTo,
         //        j));
         }
     }
-// GÁNY
-/*
-void Ensemble::evolve2(const double EvolveFrom,
-    const double EvolveTo,
-    const double tRamp,
-    const double Cmax) {
-        // altalaban egesz periodusok
-        // CPU párhuzamos
-        std::vector<std::future<void> > handles(nMaxThreads);
-        auto dTime = (EvolveTo-EvolveFrom);  // Ez lehet negatív is!
-        auto Sgn = (dTime > 0) ? 1 : ((dTime < 0) ? -1 : 0);
-        auto dt = Sgn*0.01*period;
-        auto dN = Points.size()/nMaxThreads;
-        //log? 
-        for (int j = 0; j < nMaxThreads; j++) {
-            handles.push_back(std::async(std::launch::async,
-                [&](int idx) {
-                    for (int i = 0; i < dN; i++) {
-                        auto index = idx*dN+i;
-                        // std::cout << i << std::endl;
-                        integrate_adaptive(RegularStepperType(),
-                            inga2(tRamp, Cmax),
-                            Points[index],
-                            EvolveFrom*period,
-                            EvolveTo*period,
-                            dt);
-                        Points[index][0] = contract(Points[index][0]);
-                    }
-                },
-                j));
-        }
-    }
-/*void Ensemble::evolveSerial(const double EvolveFrom, 
-    const double EvolveTo,
-    const double tRamp,
-    const double Cmax,
-    const std::string log) {
-
-}*/
 
 void Ensemble::write(const std::string & filename) const {
     std::ofstream output(filename);
