@@ -66,7 +66,6 @@ void Bifurcation::PrintBasin(const std::string& path, const Ensemble & init, dou
         for(int j=0; j<BasinIndex.size(); j++) {
             //std::cout << j << " " << count << "\n"; 
             if(BasinIndex[j]==i) {
-                //std::cout << "most " << i  << " " << j  << " " << BasinIndex.size()<<"\n";
                 output << init.Points[j];
                 mov.Points.push_back(init.Points[j]);
                 /*auto IsClosestTo = closestElementInSet(moving.Points[j], attractors);
