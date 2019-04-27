@@ -10,10 +10,12 @@ int main(int, char**) {
 
  Bifurcation Cvalue(0.5835);
 Cvalue(20, 300);
-for(int i = 0 ; i < 40; i ++){
-        std::cout << i << "\n";
-        TestLinearRamp("output/05835.txt", 0, 100, i, Cvalue, 500);
-        Cvalue.BasinIndex.clear(); 
+for(int j = 1; j < 50; j++){
+    for(int i = 0 ; i < 40; i ++){
+            std::cout << i << "\n";
+            TestLinearRamp("output/"+std::to_string(j)+"_05835.txt", -j, 100, i, Cvalue, 500);
+            Cvalue.BasinIndex.clear(); 
+    }
 }
 
 
