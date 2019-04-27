@@ -1,11 +1,22 @@
 #include "./ensemble.h"
 #include "./bifurcation.h"
-#include "./transients.h"
 #include "./model.h"
 extern const double Pi;
 int main(int, char**) {
-    auto period = 2.*Pi;
- std::cout << "tr"+std::to_string(196)+"/";
+//    auto period = 2.*Pi;
+// std::cout << "tr"+std::to_string(196)+"/";
+
+
+
+ Bifurcation Cvalue(0.5835);
+Cvalue(20, 300);
+for(int i = 0 ; i < 40; i ++){
+        std::cout << i << "\n";
+        TestLinearRamp("output/05835.txt", 0, 100, i, Cvalue, 500);
+        Cvalue.BasinIndex.clear(); 
+}
+
+
 /*{
      Bifurcation Cvalue(1.8);
 
@@ -24,7 +35,7 @@ int main(int, char**) {
     Cvalue.BasinIndex.clear();
     TestLinearRamp("build/output/0611/final_data/fig13/t5/", 0., 100, 7., Cvalue, 1000, 0);
     }*/
-
+/*
 Bifurcation Cvalue(0.33);
 Cvalue(20, 300);
 for(int i = 0 ; i < 40; i ++){
@@ -39,7 +50,7 @@ for(int i = 5 ; i < 40; i ++){
         TestLinearRamp("build/output/0611/escape_ramp033.txt", 0, i, 5., Cvalue, 1000);
         Cvalue.BasinIndex.clear(); 
 }
-
+*/
 /*TestLinearRamp("build/output/0611/final_data/fig3/t9_/", 0., 9, 5., Cvalue, 1000, 0);
 Cvalue.BasinIndex.clear();
 TestLinearRamp("build/output/0611/final_data/fig3/t12_/", 0., 12, 5., Cvalue, 1000, 0);
